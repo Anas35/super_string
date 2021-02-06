@@ -104,7 +104,7 @@ extension SuperString on String {
   /// Return a `String` where all the upperCase letters are converted to lowerCase and vice versa.
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('tHiS'.swapcase()); // 'ThIs'
   /// print('HeLlO'.swapcase()); // 'hElLo'
@@ -128,7 +128,7 @@ extension SuperString on String {
   ///
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('This'.charAt(0)); // 'T'
   /// print('This'.charAt(3)); // 's'
@@ -146,7 +146,7 @@ extension SuperString on String {
   /// Returns the number of matching characters of two strings.
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('This'.similarity('This')); // 4
   /// print('this'.similarity('THis')); // 2
@@ -167,7 +167,7 @@ extension SuperString on String {
   /// Return a `String` with its first character UpperCase and the rest LowerCase.
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('this'.capitalize()); // 'This'
   /// print('THIS'.capitalize()); // 'This'
@@ -181,12 +181,12 @@ extension SuperString on String {
   /// character.
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('this'.center(6)); // ' this ';
   /// print('this'.center(7,'0')); // '00this0'
   /// ```
-  /// 
+  ///
   /// Throws an [AssertionError] if character's length is greater than 1.
   ///
   String center(int length, [String? character]) {
@@ -212,7 +212,7 @@ extension SuperString on String {
   /// The position to `end` the search is the end of the string if the optional arguments `end` is `null`.
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('this'.count('t')); // 1
   /// print('hello'.count('l')); // 2
@@ -223,11 +223,11 @@ extension SuperString on String {
       value.allMatches(this.substring(start ?? 0, end)).length;
 
   /// expandTabs method sets the tab size to the specified number of whitespaces.
-  ///  
+  ///
   /// Default `size` is 8.
   ///
   /// Example :
-  /// 
+  ///
   /// ```
   /// print('a\ta'.expandTabs(2)); // 'a a'
   /// ```
