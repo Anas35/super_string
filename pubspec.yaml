@@ -1,0 +1,10 @@
+name: super_string
+description: Dart's extension methods for String.
+version: 1.0.0-nullsafety.0
+homepage: https://github.com/Anas35/super_string
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dev_dependencies:
+  test: ^1.16.0-nullsafety.19
