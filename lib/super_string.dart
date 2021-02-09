@@ -179,7 +179,7 @@ extension SuperString on String {
 
   /// Return a `String` of specified length width which is align in center, using the specified
   /// character.
-  /// 
+  ///
   /// The default value of character is space ' '.
   ///
   /// Example :
@@ -192,8 +192,7 @@ extension SuperString on String {
   /// Throws an [AssertionError] if character's length is greater than 1.
   ///
   String center(int length, [String character = ' ']) {
-    assert(character.length <= 1,
-        "character's length should be equal to 1");
+    assert(character.length <= 1, "character's length should be equal to 1");
 
     StringBuffer str = StringBuffer();
     String char = character;
@@ -222,7 +221,7 @@ extension SuperString on String {
   /// ```
   ///
   int count(String value, [int start = 0, int? end]) =>
-      value.allMatches(this.substring(start , end)).length;
+      value.allMatches(this.substring(start, end)).length;
 
   /// expandTabs method sets the tab size to the specified number of whitespaces.
   ///
@@ -236,4 +235,42 @@ extension SuperString on String {
   ///
   String expandTabs([int? size]) =>
       size == null ? this : this.replaceAll('\t', ' ' * (size - 1));
+
+  /// Convert the given string to camelCase.
+  ///
+  /// By default `isLowerCamelCase` is set as `false` and the given string is converted into UpperCamelCase.
+  /// That means the first letter of String is converted into upperCase.
+  ///
+  /// If the `isLowerCamelCase` is set to `true` then camelCase produces lowerCamelCase.
+  /// That means the first letter of String is converted into lowerCase.
+  ///
+  /// If the String is empty, this method returns `this`.
+  ///
+  /// Example :
+  ///
+  /// ```
+  /// print('hello World'.toCamelCase()); // HelloWorld
+  /// print('hello_World'.toCamelCase()); // HelloWorld
+  /// print('hello World'.toCamelCase(isLowerCamelCase: true)); // helloWorld
+  /// ```
+  ///
+  String toCamelCase({bool isLowerCamelCase = false}) {
+    if (this.isEmpty) return this;
+
+    StringBuffer str = StringBuffer();
+
+    isLowerCamelCase
+        ? str.write(this[0].toLowerCase())
+        : str.write(this[0].toUpperCase());
+
+    for (int i = 1; i < this.length; i++) {
+      if (this[i] == ' ' || this[i] == '_') {
+        str.write(this[i + 1].toUpperCase());
+      } else {
+        if (this[i - 1] != ' ' && this[i - 1] != '_')
+          str.write(this[i].toLowerCase());
+      }
+    }
+    return str.toString();
+  }
 }
