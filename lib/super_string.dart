@@ -179,6 +179,8 @@ extension SuperString on String {
 
   /// Return a `String` of specified length width which is align in center, using the specified
   /// character.
+  /// 
+  /// The default value of character is space ' '.
   ///
   /// Example :
   ///
@@ -189,12 +191,12 @@ extension SuperString on String {
   ///
   /// Throws an [AssertionError] if character's length is greater than 1.
   ///
-  String center(int length, [String? character]) {
-    assert(character == null || character.length <= 1,
+  String center(int length, [String character = ' ']) {
+    assert(character.length <= 1,
         "character's length should be equal to 1");
 
     StringBuffer str = StringBuffer();
-    String char = character ?? ' ';
+    String char = character;
     int times = length - this.length;
 
     times.isOdd
@@ -208,8 +210,8 @@ extension SuperString on String {
 
   /// Return the number of times a specified `value` appears in the string.
   ///
-  /// The position to `start` the search is 0 if the optional arguments `start` is `null`.
-  /// The position to `end` the search is the end of the string if the optional arguments `end` is `null`.
+  /// The default value of `start` is 0 if the optional arguments `start` is not assigned.
+  /// The default value of `end` is the end of the string if the optional arguments `end` is `null`.
   ///
   /// Example :
   ///
@@ -219,8 +221,8 @@ extension SuperString on String {
   /// print('hello'.count('l',0,2)); // 2
   /// ```
   ///
-  int count(String value, [int? start, int? end]) =>
-      value.allMatches(this.substring(start ?? 0, end)).length;
+  int count(String value, [int start = 0, int? end]) =>
+      value.allMatches(this.substring(start , end)).length;
 
   /// expandTabs method sets the tab size to the specified number of whitespaces.
   ///
