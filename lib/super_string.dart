@@ -260,15 +260,15 @@ extension SuperString on String {
     StringBuffer str = StringBuffer();
 
     isLowerCamelCase
-        ? str.write(this[0].toLowerCase())
-        : str.write(this[0].toUpperCase());
+        ? str.write(this.charAt(0).toLowerCase())
+        : str.write(this.charAt(0).toUpperCase());
 
     for (int i = 1; i < this.length; i++) {
-      if (this[i] == ' ' || this[i] == '_') {
-        str.write(this[i + 1].toUpperCase());
+      if (this.charAt(i) == ' ' || this.charAt(i) == '_') {
+        str.write(this.charAt(i + 1).toUpperCase());
       } else {
-        if (this[i - 1] != ' ' && this[i - 1] != '_')
-          str.write(this[i].toLowerCase());
+        if (this.charAt(i - 1) != ' ' && this.charAt(i - 1) != '_')
+          str.write(this.charAt(i).toLowerCase());
       }
     }
     return str.toString();

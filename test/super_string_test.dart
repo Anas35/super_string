@@ -306,12 +306,15 @@ void main() {
   test('toCamelCase', () {
     /// Expected `""` when Empty string `""` is called.
     expect(emptyString.toCamelCase(), '');
+
     /// Expected to match the string
     expect(camel.toCamelCase(), 'HelloWorld');
     expect(identifier.toCamelCase(), 'Hello123');
     expect(multiCaseSentence.toCamelCase(), 'ThisSentenceContainMultiplyWords');
+
     /// Expect first character to lower string when isLowerCamelCase is set as true
     expect(camel.toCamelCase(isLowerCamelCase: true), 'helloWorld');
-    expect(multiCaseSentence.toCamelCase(isLowerCamelCase: true), 'thisSentenceContainMultiplyWords'); 
+    expect(multiCaseSentence.toCamelCase(isLowerCamelCase: true),
+        'thisSentenceContainMultiplyWords');
   });
 }
