@@ -1,7 +1,6 @@
 import 'package:super_string/super_string.dart';
 
 void main() {
-
   /// [isUpperCase]
   print('this'.isUpperCase); // => false
   print('THIS'.isUpperCase); // => true
@@ -55,14 +54,19 @@ void main() {
 
   /// [center]
   print('this'.center(6)); // => ' this ';
-  print('this'.center(7,'0')); // => '00this0'
+  print('this'.center(7, '0')); // => '00this0'
 
   /// [count]
   print('this'.count('t')); // => 1
   print('hello'.count('l')); // => 2
-  print('hello'.count('l',0,3)); // => 1
+  print('hello'.count('l', 0, 3)); // => 1
 
   /// [expandTabs]
   print('a\ta'.expandTabs()); // => 'a        a'
   print('a\ta'.expandTabs(2)); // => 'a a'
+
+  /// [toCamelCase]
+  print('hello World'.toCamelCase()); // => HelloWorld
+  print('hello_World'.toCamelCase()); // => HelloWorld
+  print('hello World'.toCamelCase(isLowerCamelCase: true)); // => helloWorld
 }

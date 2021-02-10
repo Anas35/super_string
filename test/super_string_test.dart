@@ -14,6 +14,7 @@ void main() {
   const String upperCaseSentence = 'THIS SENTENCE CONTAIN MULTIPLY WORDS';
   const String multiCaseSentence = 'This Sentence contain Multiply words';
   const String identifier = 'hello_123';
+  const String camel = 'hello world';
   const String tab = 'H\te\tl\tl\to';
 
   final Matcher throwsAssertionError = throwsA(isA<AssertionError>());
@@ -300,5 +301,20 @@ void main() {
     /// if Tab size is not null
     expect(tab.expandTabs(2), 'H e l l o');
     expect(tab.expandTabs(4), 'H   e   l   l   o');
+  });
+
+  test('toCamelCase', () {
+    /// Expected `""` when Empty string `""` is called.
+    expect(emptyString.toCamelCase(), '');
+
+    /// Expected to match the string
+    expect(camel.toCamelCase(), 'HelloWorld');
+    expect(identifier.toCamelCase(), 'Hello123');
+    expect(multiCaseSentence.toCamelCase(), 'ThisSentenceContainMultiplyWords');
+
+    /// Expect first character to lower string when isLowerCamelCase is set as true
+    expect(camel.toCamelCase(isLowerCamelCase: true), 'helloWorld');
+    expect(multiCaseSentence.toCamelCase(isLowerCamelCase: true),
+        'thisSentenceContainMultiplyWords');
   });
 }

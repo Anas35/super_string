@@ -180,6 +180,8 @@ extension SuperString on String {
   /// Return a `String` of specified length width which is align in center, using the specified
   /// character.
   ///
+  /// The default value of character is space ' '.
+  ///
   /// Example :
   ///
   /// ```
@@ -189,12 +191,11 @@ extension SuperString on String {
   ///
   /// Throws an [AssertionError] if character's length is greater than 1.
   ///
-  String center(int length, [String? character]) {
-    assert(character == null || character.length <= 1,
-        "character's length should be equal to 1");
+  String center(int length, [String character = ' ']) {
+    assert(character.length <= 1, "character's length should be equal to 1");
 
     StringBuffer str = StringBuffer();
-    String char = character ?? ' ';
+    String char = character;
     int times = length - this.length;
 
     times.isOdd
@@ -208,8 +209,8 @@ extension SuperString on String {
 
   /// Return the number of times a specified `value` appears in the string.
   ///
-  /// The position to `start` the search is 0 if the optional arguments `start` is `null`.
-  /// The position to `end` the search is the end of the string if the optional arguments `end` is `null`.
+  /// The default value of `start` is 0 if the optional arguments `start` is not assigned.
+  /// The default value of `end` is the end of the string if the optional arguments `end` is `null`.
   ///
   /// Example :
   ///
@@ -219,8 +220,8 @@ extension SuperString on String {
   /// print('hello'.count('l',0,2)); // 2
   /// ```
   ///
-  int count(String value, [int? start, int? end]) =>
-      value.allMatches(this.substring(start ?? 0, end)).length;
+  int count(String value, [int start = 0, int? end]) =>
+      value.allMatches(this.substring(start, end)).length;
 
   /// expandTabs method sets the tab size to the specified number of whitespaces.
   ///
@@ -234,4 +235,42 @@ extension SuperString on String {
   ///
   String expandTabs([int? size]) =>
       size == null ? this : this.replaceAll('\t', ' ' * (size - 1));
+
+  /// Convert the given string to camelCase.
+  ///
+  /// By default `isLowerCamelCase` is set as `false` and the given string is converted into UpperCamelCase.
+  /// That means the first letter of String is converted into upperCase.
+  ///
+  /// If the `isLowerCamelCase` is set to `true` then camelCase produces lowerCamelCase.
+  /// That means the first letter of String is converted into lowerCase.
+  ///
+  /// If the String is empty, this method returns `this`.
+  ///
+  /// Example :
+  ///
+  /// ```
+  /// print('hello World'.toCamelCase()); // HelloWorld
+  /// print('hello_World'.toCamelCase()); // HelloWorld
+  /// print('hello World'.toCamelCase(isLowerCamelCase: true)); // helloWorld
+  /// ```
+  ///
+  String toCamelCase({bool isLowerCamelCase = false}) {
+    if (this.isEmpty) return this;
+
+    StringBuffer str = StringBuffer();
+
+    isLowerCamelCase
+        ? str.write(this.charAt(0).toLowerCase())
+        : str.write(this.charAt(0).toUpperCase());
+
+    for (int i = 1; i < this.length; i++) {
+      if (this.charAt(i) == ' ' || this.charAt(i) == '_') {
+        str.write(this.charAt(i + 1).toUpperCase());
+      } else {
+        if (this.charAt(i - 1) != ' ' && this.charAt(i - 1) != '_')
+          str.write(this.charAt(i).toLowerCase());
+      }
+    }
+    return str.toString();
+  }
 }
