@@ -33,7 +33,7 @@ extension SuperString on String {
   /// print('This@123'.isAlNum); // false
   /// ```
   ///
-  bool get isAlNum => RegExp(r"^[a-zA-Z0-9]+$").hasMatch(this);
+  bool get isAlNum => RegExp(r"^[\p{L}\p{N}]+$", unicode: true).hasMatch(this);
 
   /// Return `true` if all the characters are alphabets letter (a-z).
   ///
@@ -45,7 +45,7 @@ extension SuperString on String {
   /// print('This@123'.isAlpha); // false
   /// ```
   ///
-  bool get isAlpha => RegExp(r"^[a-zA-Z]+$").hasMatch(this);
+  bool get isAlpha => RegExp(r"^\p{L}+$", unicode: true).hasMatch(this);
 
   /// Return `true` if all the characters are [int] (0-9).
   ///
@@ -57,7 +57,7 @@ extension SuperString on String {
   /// print('This@123'.isAlNum); // false
   /// ```
   ///
-  bool get isInteger => RegExp(r"^[0-9]+$").hasMatch(this);
+  bool get isInteger => RegExp(r"^\p{N}+$", unicode: true).hasMatch(this);
 
   /// Return `true` if the string contains only alphanumeric letters (a-z) , (0-9) and
   /// underscores (_).
@@ -75,7 +75,8 @@ extension SuperString on String {
   /// ```
   ///
   bool get isIdentifier =>
-      RegExp(r"^[_a-zA-Z0-9]+$").hasMatch(this) && !this[0].isInteger;
+      RegExp(r"^[\p{L}\p{N}_]+$", unicode: true).hasMatch(this) &&
+      !this[0].isInteger;
 
   /// Return a `String` where first character of every words is converted to upperCase.
   ///

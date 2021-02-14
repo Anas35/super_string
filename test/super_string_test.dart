@@ -14,8 +14,12 @@ void main() {
   const String upperCaseSentence = 'THIS SENTENCE CONTAIN MULTIPLY WORDS';
   const String multiCaseSentence = 'This Sentence contain Multiply words';
   const String identifier = 'hello_123';
+  const String identifier2 = '_hello123';
   const String camel = 'hello world';
   const String tab = 'H\te\tl\tl\to';
+  const String nonASCIICharacter1 = 'こんにちは世界';
+  const String nonASCIICharacter2 = '٩٣';
+  const String nonASCIICharacter3 = 'مرحبا٩٣';
 
   final Matcher throwsAssertionError = throwsA(isA<AssertionError>());
 
@@ -83,6 +87,9 @@ void main() {
 
     /// Expected True when a words conatining Alphabets and numbers is called.
     expect(multiCaseWord.isAlNum, true);
+    expect(nonASCIICharacter1.isAlNum, true);
+    expect(nonASCIICharacter2.isAlNum, true);
+    expect(nonASCIICharacter3.isAlNum, true);
     expect(multiCaseWordWithNumber.isAlNum, true);
 
     /// Expected False when a senetence is called.
@@ -98,6 +105,9 @@ void main() {
 
     /// Expected True when a words conatining only Alphabets called.
     expect(multiCaseWord.isAlpha, true);
+    expect(nonASCIICharacter3.isAlpha, false);
+    expect(nonASCIICharacter2.isAlpha, false);
+    expect(nonASCIICharacter1.isAlpha, true);
 
     /// Expected False when a words conatining both Alphabets and Number called.
     expect(multiCaseWordWithNumber.isAlpha, false);
@@ -127,6 +137,11 @@ void main() {
 
     /// Expected False when a special character is called.
     expect(specialCharacter.isInteger, false);
+
+    /// Expected True when other language's number is called.
+    expect(nonASCIICharacter2.isInteger, true);
+    expect(nonASCIICharacter3.isInteger, false);
+    expect(nonASCIICharacter1.isInteger, false);
   });
 
   test('isIdentifier', () async {
@@ -136,12 +151,15 @@ void main() {
     /// Expected False when a number is called. Since Indentifier should
     /// not start with numbers.
     expect(number.isIdentifier, false);
+    expect(nonASCIICharacter2.isIdentifier, false);
 
     /// Expected True when a words conatining only Alphabets called.
     expect(multiCaseWord.isIdentifier, true);
+    expect(nonASCIICharacter1.isIdentifier, true);
 
     /// Expected True when a words conatining both Alphabets and Number called.
     expect(multiCaseWordWithNumber.isIdentifier, true);
+    expect(nonASCIICharacter3.isIdentifier, true);
 
     /// Expected False when a senetence is called.
     expect(multiCaseSentence.isIdentifier, false);
@@ -154,6 +172,7 @@ void main() {
 
     /// Expected True when a word containing `_` is called.
     expect(identifier.isIdentifier, true);
+    expect(identifier2.isIdentifier, true);
   });
 
   test('title', () {
