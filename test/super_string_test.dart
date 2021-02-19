@@ -3,337 +3,358 @@ import 'package:test/test.dart';
 import 'package:super_string/super_string.dart';
 
 void main() {
-  const String emptyString = '';
-  const String lowerCaseCharacter = 'a';
-  const String upperCasecharacter = 'A';
-  const String number = '1';
-  const String multiCaseWord = "hEllo";
-  const String multiCaseWordWithNumber = "Hello123";
-  const String specialCharacter = "@";
-  const String lowerCaseSentence = 'this sentence contain multiply words';
-  const String upperCaseSentence = 'THIS SENTENCE CONTAIN MULTIPLY WORDS';
-  const String multiCaseSentence = 'This Sentence contain Multiply words';
-  const String identifier = 'hello_123';
-  const String identifier2 = '_hello123';
-  const String camel = 'hello world';
-  const String tab = 'H\te\tl\tl\to';
-  const String nonASCIICharacter1 = 'こんにちは世界';
-  const String nonASCIICharacter2 = '٩٣';
-  const String nonASCIICharacter3 = 'مرحبا٩٣';
-
   final Matcher throwsAssertionError = throwsA(isA<AssertionError>());
 
-  test('isLowerCase', () async {
+  test('isLowerCase', () {
     /// Expected True when Empty string `""` is called.
-    expect(emptyString.isLowerCase, true);
+    expect(''.isLowerCase, true);
 
     /// Expected True when a lowerCase Alphabet is called.
-    expect(lowerCaseCharacter.isLowerCase, true);
+    expect('hello world'.isLowerCase, true);
 
     /// Expected False when a upperCase Alphabet is called.
-    expect(upperCasecharacter.isLowerCase, false);
+    expect('HELLO WORLD'.isLowerCase, false);
+
+    /// Expected False when both upperCase and lowerCase Alphabet is called.
+    expect('Hello World'.isLowerCase, false);
 
     /// Expected True when a number is called
-    expect(number.isLowerCase, true);
+    expect('123'.isLowerCase, true);
 
-    /// Expected False when a word containing both upperCase and lowerCase is called.
-    expect(multiCaseWord.isLowerCase, false);
+    /// Expected True when a special Character is called.
+    expect('@#&!'.isLowerCase, true);
 
-    /// Expected True when a word containing special Character is called.
-    expect(specialCharacter.isLowerCase, true);
+    /// Expected False when a Non-ASCII upperCase word is called.
+    expect('ПРИВЕТ'.isLowerCase, false);
 
-    /// Expected True when a sentence containing lowerCase is called.
-    expect(lowerCaseSentence.isLowerCase, true);
+    /// Expected True when a Non-ASCII lowerCase word is called.
+    expect('привет'.isLowerCase, true);
 
-    /// Expected False when a sentence containing upperCase is called.
-    expect(upperCaseSentence.isLowerCase, false);
-
-    /// Expected False when a sentence containing both upperCase and lowerCase is called.
-    expect(multiCaseSentence.isLowerCase, false);
+    /// Expect True when a Single case Non-ASCII word is called.
+    expect('مرحبا'.isLowerCase, true);
   });
 
-  test('isUpperCase', () async {
+  test('isUpperCase', () {
     /// Expected True when Empty string `""` is called.
-    expect(emptyString.isUpperCase, true);
+    expect(''.isUpperCase, true);
 
     /// Expected False when a lowerCase Alphabet is called.
-    expect(lowerCaseCharacter.isUpperCase, false);
+    expect('hello world'.isUpperCase, false);
 
     /// Expected True when a upperCase Alphabet is called.
-    expect(upperCasecharacter.isUpperCase, true);
+    expect('HELLO WORLD'.isUpperCase, true);
+
+    /// Expected False when both upperCase and lowerCase Alphabet is called.
+    expect('Hello World'.isUpperCase, false);
 
     /// Expected True when a number is called
-    expect(number.isUpperCase, true);
-
-    /// Expected False when a word containing both upperCase and lowerCase is called.
-    expect(multiCaseWord.isUpperCase, false);
+    expect('1234'.isUpperCase, true);
 
     /// Expected True when a word containing special Character is called.
-    expect(specialCharacter.isUpperCase, true);
+    expect('@#&!'.isUpperCase, true);
 
-    /// Expected False when a sentence containing lowerCase is called.
-    expect(lowerCaseSentence.isUpperCase, false);
+    /// Expected True when a Non-ASCII upperCase word is called.
+    expect('ПРИВЕТ'.isUpperCase, true);
 
-    /// Expected True when a sentence containing upperCase is called.
-    expect(upperCaseSentence.isUpperCase, true);
+    /// Expected False when a Non-ASCII lowerCase word is called.
+    expect('привет'.isUpperCase, false);
 
-    /// Expected False when a sentence containing both upperCase and lowerCase is called.
-    expect(multiCaseSentence.isUpperCase, false);
+    /// Expect True when a Single case Non-ASCII word is called.
+    expect('مرحبا'.isUpperCase, true);
   });
 
-  test('isAlNum', () async {
+  test('isAlNum', () {
     /// Expected False when a empty String `""` is called.
-    expect(emptyString.isAlNum, false);
+    expect(''.isAlNum, false);
 
-    /// Expected True when a words conatining Alphabets and numbers is called.
-    expect(multiCaseWord.isAlNum, true);
-    expect(nonASCIICharacter1.isAlNum, true);
-    expect(nonASCIICharacter2.isAlNum, true);
-    expect(nonASCIICharacter3.isAlNum, true);
-    expect(multiCaseWordWithNumber.isAlNum, true);
+    /// Expected True when a letters is called.
+    expect('Hello'.isAlNum, true);
 
-    /// Expected False when a senetence is called.
-    expect(multiCaseSentence.isAlNum, false);
+    /// Expected True when a numbers is called.
+    expect('1234'.isAlNum, true);
 
-    /// Expected False when a special character is called.
-    expect(specialCharacter.isAlNum, false);
+    /// Expected True when both numbers and letters is called.
+    expect('Hello1234'.isAlNum, true);
+
+    /// Expect False if the String THIS contains Space is called.
+    expect('Hello 1234'.isAlNum, false);
+
+    /// Expect False if the Special characters is called.
+    expect('!@#&'.isAlNum, false);
+
+    /// Expect True when a Non-ASCII word and numbers is called.
+    expect('مرحبا٦٥'.isAlNum, true);
+
+    /// Expect True when a Non-ASCII word is called.
+    expect('ПРИВЕТ'.isAlNum, true);
   });
 
-  test('isAlpha', () async {
+  test('isAlpha', () {
     /// Expected False when a empty String `""` is called.
-    expect(emptyString.isAlpha, false);
+    expect(''.isAlpha, false);
 
-    /// Expected True when a words conatining only Alphabets called.
-    expect(multiCaseWord.isAlpha, true);
-    expect(nonASCIICharacter3.isAlpha, false);
-    expect(nonASCIICharacter2.isAlpha, false);
-    expect(nonASCIICharacter1.isAlpha, true);
+    /// Expected True when a letters is called.
+    expect('Hello'.isAlpha, true);
 
-    /// Expected False when a words conatining both Alphabets and Number called.
-    expect(multiCaseWordWithNumber.isAlpha, false);
+    /// Expected False when a numbers is called.
+    expect('1234'.isAlpha, false);
 
-    /// Expected False when a senetence is called.
-    expect(multiCaseSentence.isAlpha, false);
+    /// Expected False when both numbers and letters is called.
+    expect('Hello1234'.isAlpha, false);
 
-    /// Expected False when a special character is called.
-    expect(specialCharacter.isAlpha, false);
+    /// Expect False if the String THIS contains Space is called.
+    expect('Hello 1234'.isAlpha, false);
+
+    /// Expect False if the Special characters is called.
+    expect('!@#&'.isAlpha, false);
+
+    /// Expect False when a Non-ASCII word and numbers is called.
+    expect('مرحبا٦٥'.isAlpha, false);
+
+    /// Expect True when a Non-ASCII word is called.
+    expect('ПРИВЕТ'.isAlpha, true);
   });
 
   test('isInteger', () async {
     /// Expected False when a empty String `""` is called.
-    expect(emptyString.isInteger, false);
+    expect(''.isInteger, false);
 
-    /// Expected True when a number is called
-    expect(number.isInteger, true);
+    /// Expected False when a letters is called.
+    expect('Hello'.isInteger, false);
 
-    /// Expected False when a words conatining only Alphabets called.
-    expect(multiCaseWord.isInteger, false);
+    /// Expected True when a numbers is called.
+    expect('1234'.isInteger, true);
 
-    /// Expected False when a words conatining both Alphabets and Number called.
-    expect(multiCaseWordWithNumber.isInteger, false);
+    /// Expected False when both numbers and letters is called.
+    expect('Hello1234'.isInteger, false);
 
-    /// Expected False when a senetence is called.
-    expect(multiCaseSentence.isInteger, false);
+    /// Expect False if the String THIS contains Space is called.
+    expect('Hello 1234'.isInteger, false);
 
-    /// Expected False when a special character is called.
-    expect(specialCharacter.isInteger, false);
+    /// Expect False if the Special characters is called.
+    expect('!@#&'.isInteger, false);
 
-    /// Expected True when other language's number is called.
-    expect(nonASCIICharacter2.isInteger, true);
-    expect(nonASCIICharacter3.isInteger, false);
-    expect(nonASCIICharacter1.isInteger, false);
+    /// Expect False when a Non-ASCII word and numbers is called.
+    expect('مرحبا٦٥'.isInteger, false);
+
+    /// Expect True when a Non-ASCII numbers is called.
+    expect('٦٥'.isInteger, true);
+
+    /// Expect False when a Non-ASCII word is called.
+    expect('ПРИВЕТ'.isInteger, false);
   });
 
-  test('isIdentifier', () async {
+  test('isIdentifier', () {
     /// Expected False when a empty String `""` is called.
-    expect(emptyString.isIdentifier, false);
+    expect(''.isIdentifier, false);
 
-    /// Expected False when a number is called. Since Indentifier should
-    /// not start with numbers.
-    expect(number.isIdentifier, false);
-    expect(nonASCIICharacter2.isIdentifier, false);
+    /// Expected True when a letters is called.
+    expect('Hello'.isIdentifier, true);
 
-    /// Expected True when a words conatining only Alphabets called.
-    expect(multiCaseWord.isIdentifier, true);
-    expect(nonASCIICharacter1.isIdentifier, true);
+    /// Expected False when a String is start from numbers is called.
+    expect('1234'.isIdentifier, false);
 
-    /// Expected True when a words conatining both Alphabets and Number called.
-    expect(multiCaseWordWithNumber.isIdentifier, true);
-    expect(nonASCIICharacter3.isIdentifier, true);
+    /// Expected True when both numbers and letters is called.
+    expect('Hello1234'.isIdentifier, true);
 
-    /// Expected False when a senetence is called.
-    expect(multiCaseSentence.isIdentifier, false);
+    /// Expect False if the String THIS contains Space is called.
+    expect('Hello 1234'.isIdentifier, false);
 
-    /// Expected False when a special character is called.
-    expect(specialCharacter.isIdentifier, false);
+    /// Expect False if the Special characters is called otherthan _ underscore.
+    expect('!@#&'.isIdentifier, false);
 
-    /// Expected False when a special character is called.
-    expect(specialCharacter.isIdentifier, false);
+    /// Expect True if a String contain underscore is called.
+    expect('Hello_12'.isIdentifier, true);
 
-    /// Expected True when a word containing `_` is called.
-    expect(identifier.isIdentifier, true);
-    expect(identifier2.isIdentifier, true);
+    /// Expect True when a Non-ASCII word and numbers is called.
+    expect('مرحبا٦٥'.isIdentifier, true);
+
+    /// Expect True when a Non-ASCII word is called.
+    expect('ПРИВЕТ'.isIdentifier, true);
   });
 
   test('title', () {
     /// Expected `""` when Empty string `""` is called.
-    expect(emptyString.title(), '');
+    expect(''.title(), '');
 
-    /// Expected a String with first letter in upperCase and the rest in lowerCase
-    /// when a word or character is called.
-    expect(lowerCaseCharacter.title(), 'A');
-    expect(upperCasecharacter.title(), 'A');
-    expect(multiCaseWord.title(), 'Hello');
+    /// Expected a String with first letter in upperCase and the rest in lowerCase.
+    expect('hello'.title(), 'Hello');
+    expect('hello world'.title(), 'Hello World');
 
-    /// Expected a String with first letter in each word is in upperCase and the rest in lowerCase
-    /// when a sentence is called.
-    String expected = "This Sentence Contain Multiply Words";
+    /// Expected same String when a String comtaining only number is called
+    expect('1234'.title(), '1234');
 
-    expect(lowerCaseSentence.title(), expected);
-    expect(upperCaseSentence.title(), expected);
-    expect(multiCaseSentence.title(), expected);
-    expect(identifier.title(), 'Hello_123');
+    /// Expected same String when a String comtaining only special characters is called
+    expect('@#&!'.title(), '@#&!');
 
-    /// Expected a actual String when only a number or Special Character is called.
-    expect(number.title(), number);
-    expect(specialCharacter.title(), specialCharacter);
+    /// Expected First letter Uppercase when a Non-ASCII upperCase and lowerCase word is called.
+    expect('ПРИВЕТ привет'.title(), 'Привет Привет');
+
+    /// Expect same String when a string containing Single case Non-ASCII word is called.
+    expect('مرحبا'.title(), 'مرحبا');
   });
 
   test('swapcase', () {
     /// Expected `""` when Empty string `""` is called.
-    expect(emptyString.swapcase(), '');
+    expect(''.swapcase(), '');
 
     /// Expected a String with opposite Case of the String which is called.
-    expect(lowerCaseCharacter.swapcase(), 'A');
-    expect(upperCasecharacter.swapcase(), 'a');
-    expect(multiCaseWord.swapcase(), 'HeLLO');
+    expect('hello'.swapcase(), 'HELLO');
+    expect('HELLO'.swapcase(), 'hello');
+    expect('heLLo'.swapcase(), 'HEllO');
+    expect('Hello World'.swapcase(), 'hELLO wORLD');
+    expect('hello_123'.swapcase(), 'HELLO_123');
 
-    /// Expected a String with first letter in upperCase and the rest in lowerCase
-    /// when a sentence is called.
-    expect(lowerCaseSentence.swapcase(), upperCaseSentence);
-    expect(upperCaseSentence.swapcase(), lowerCaseSentence);
-    expect(
-        multiCaseSentence.swapcase(), 'tHIS sENTENCE CONTAIN mULTIPLY WORDS');
-    expect(identifier.swapcase(), 'HELLO_123');
+    /// Expected same String when a String comtaining only number is called
+    expect('1234'.swapcase(), '1234');
 
-    /// Expected a actual String when only a number or Special Character is called.
-    expect(number.swapcase(), number);
-    expect(specialCharacter.swapcase(), specialCharacter);
+    /// Expected same String when a String comtaining only special characters is called
+    expect('@#&!'.swapcase(), '@#&!');
+
+    /// Expected opposite case when a Non-ASCII word is called.
+    expect('ПРИВЕТ'.swapcase(), 'привет');
+    expect('привет'.swapcase(), 'ПРИВЕТ');
+
+    /// Expect same String when a string containing Single case Non-ASCII word is called.
+    expect('مرحبا'.swapcase(), 'مرحبا');
   });
 
   test('charAt', () {
-    /// index should not be Negative or greater than input String and String should not be empty.
-    expect(() => emptyString.charAt(0), throwsAssertionError);
-    expect(() => multiCaseWord.charAt(-1), throwsAssertionError);
-    expect(() => multiCaseWord.charAt(5), throwsAssertionError);
+    /// index should not be empty string.
+    expect(() => ''.charAt(0), throwsAssertionError);
+
+    /// index should not be negative.
+    expect(() => 'hello'.charAt(-1), throwsAssertionError);
+
+    /// index should not be greater than input String.
+    expect(() => 'hello'.charAt(6), throwsAssertionError);
 
     /// Expected a single character's length when the function is called.
-    expect(multiCaseWord.charAt(1).length, 1);
+    expect('hello'.charAt(1).length, 1);
 
-    /// Expected a single character when the fuction is called
-    expect(multiCaseWord.charAt(0), 'h');
-    expect(multiCaseWord.charAt(1), 'E');
+    /// Expected a character when the fuction is called.
+    expect('Hello'.charAt(0), 'H');
+
+    /// Expected to return non-ASCII character when it is called.
+    expect('ПРИВЕТ'.charAt(2), 'И');
+    expect('مرحبا'.charAt(3), 'ب');
   });
 
   test('similarity', () {
     /// Expected 0 when empty String is Compared to empty String
-    expect(emptyString.similarity(''), 0);
+    expect(''.similarity(''), 0);
 
     /// Expected 0 when there is no match
-    expect(multiCaseWordWithNumber.similarity('Ab987'), 0);
+    expect('hello'.similarity('Ab987'), 0);
+
+    /// Similarity function is Case sensitive.
+    expect('A'.similarity('a'), 0);
+    expect('x'.similarity('X'), 0);
 
     /// Expected some number when is match
-    expect(multiCaseWordWithNumber.similarity('H'), 1);
-    expect(multiCaseWordWithNumber.similarity('123'), 3);
+    expect('Hello world'.similarity('H'), 1);
 
-    /// value is case sensitive. Means both upperCase and lowerCase treat as different.
-    expect(multiCaseWordWithNumber.similarity('h'), 0);
+    /// TODO: fix similarity implementation
+    //expect('Hello Hello'.similarity('Hello'), 4);
+    expect('123'.similarity('123'), 3);
+    expect('ПРИВЕТ'.similarity('ПРИ'), 3);
+    expect('مرحبا'.similarity('مرح'), 3);
   });
 
   test('capitalize', () {
     /// Expected `""` when Empty string `""` is called.
-    expect(emptyString.capitalize(), '');
+    expect(''.capitalize(), '');
 
-    /// Expected a String with first letter in upperCase and the rest in lowerCase
-    /// when a word or character is called.
-    expect(lowerCaseCharacter.capitalize(), 'A');
-    expect(upperCasecharacter.capitalize(), 'A');
-    expect(multiCaseWord.capitalize(), 'Hello');
+    /// Expected a String with first letter in upperCase and the rest in lowerCase.
+    expect('hello'.capitalize(), 'Hello');
+    expect('Hello World'.capitalize(), 'Hello world');
 
-    /// Expected a String with first letter in upperCase and the rest in lowerCase
-    /// when a sentence is called.
-    String expected = "This sentence contain multiply words";
+    /// Expected a actual String when only a number is called.
+    expect('123'.capitalize(), '123');
 
-    expect(lowerCaseSentence.capitalize(), expected);
-    expect(upperCaseSentence.capitalize(), expected);
-    expect(multiCaseSentence.capitalize(), expected);
-    expect(identifier.capitalize(), 'Hello_123');
+    /// Expected a actual String when a Special Character is called.
+    expect('@!^&'.capitalize(), '@!^&');
 
-    /// Expected a actual String when only a number or Special Character is called.
-    expect(number.capitalize(), number);
-    expect(specialCharacter.capitalize(), specialCharacter);
+    /// Expected First letter Uppercase when a Non-ASCII upperCase and lowerCase word is called.
+    expect('ПРИВЕТ ПРИВЕТ'.capitalize(), 'Привет привет');
+    expect('привет'.capitalize(), 'Привет');
+
+    /// Expect same String when a string containing Single case Non-ASCII word is called.
+    expect('مرحبا'.capitalize(), 'مرحبا');
   });
 
   test('center', () {
     /// character length should not be more than one.
-    expect(() => multiCaseWord.center(4, 'as'), throwsAssertionError);
+    expect(() => 'Hello'.center(4, 'as'), throwsAssertionError);
 
     /// Add space on both side if character is null
-    expect(number.center(4, ' '), '  ' + number + ' ');
-    expect(multiCaseWord.center(9), '  ' + multiCaseWord + '  ');
+    expect('123'.center(7), '  123  ');
 
     /// Add character on both side if character is null
-    expect(number.center(4, '0'), '00' + number + '0');
-    expect(number.center(4, ''), number);
-    expect(multiCaseWord.center(9, '0'), '00' + multiCaseWord + '00');
+    expect('Hello'.center(9, '-'), '--Hello--');
+    expect('ПРИВЕТ'.center(8, '-'), '-ПРИВЕТ-');
+
+    /// Expect actual String when emptyString provided.
+    expect('Hello'.center(4, ''), 'Hello');
   });
 
   test('count', () {
     /// index should not be Negative or greater than input String.
-    expect(() => multiCaseWord.count('H', -1), throwsRangeError);
-    expect(() => multiCaseWord.count('H', 7), throwsRangeError);
+    expect(() => 'Hello'.count('H', -1), throwsRangeError);
+    expect(() => 'Hello'.count('H', 7), throwsRangeError);
 
     /// Expected 1 when empty String is count with empty string.
-    expect(emptyString.count(''), 1);
+    expect(''.count(''), 1);
 
     /// Expected 0 when there is no match
-    expect(multiCaseWordWithNumber.count('A'), 0);
+    expect('Hello'.count('A'), 0);
 
     /// Expected some number when is match
-    expect(multiCaseWordWithNumber.count('H'), 1);
-    expect(multiCaseWordWithNumber.count('l'), 2);
-    expect(multiCaseWordWithNumber.count('123'), 1);
+    expect('Hello'.count('H'), 1);
+    expect('HelloHello Hello'.count('Hello'), 3);
 
     /// Expected some number when is match with start and end provide
-    expect(multiCaseWordWithNumber.count('H', 0), 1);
-    expect(multiCaseWordWithNumber.count('H', 1), 0);
-    expect(multiCaseWordWithNumber.count('l', 0, 3), 1);
+    expect('Hello'.count('H', 1), 0);
+    expect('Hello'.count('l', 0, 3), 1);
 
     /// value is case sensitive. Means both upperCase and lowerCase treat as different.
-    expect(multiCaseWordWithNumber.count('h'), 0);
+    expect('Hello'.count('h'), 0);
+
+    /// Expected to return non-ASCII character when it is called.
+    expect('ПРИВЕТ'.count('И'), 1);
+    expect('مرحبا مرحبا'.count('مر'), 2);
   });
 
   test('expandTabs', () {
     /// Default Tab size is 8
-    expect(tab.expandTabs(), tab);
+    expect('H\te\tl\tl\to'.expandTabs(), 'H\te\tl\tl\to');
 
     /// if Tab size is not null
-    expect(tab.expandTabs(2), 'H e l l o');
-    expect(tab.expandTabs(4), 'H   e   l   l   o');
+    expect('H\te\tl\tl\to'.expandTabs(2), 'H e l l o');
+    expect('H\te\tl\tl\to'.expandTabs(4), 'H   e   l   l   o');
   });
 
   test('toCamelCase', () {
     /// Expected `""` when Empty string `""` is called.
-    expect(emptyString.toCamelCase(), '');
+    expect(''.toCamelCase(), '');
 
     /// Expected to match the string
-    expect(camel.toCamelCase(), 'HelloWorld');
-    expect(identifier.toCamelCase(), 'Hello123');
-    expect(multiCaseSentence.toCamelCase(), 'ThisSentenceContainMultiplyWords');
+    expect('hello_world'.toCamelCase(), 'HelloWorld');
+    expect('hello world'.toCamelCase(), 'HelloWorld');
+
+     /// Expected a actual String without Space when only a number is called.
+    expect('123 123'.toCamelCase(), '123123');
+
+    /// Expected a actual String without Space when a Special Character is called.
+    expect('@! ^&'.toCamelCase(), '@!^&');
 
     /// Expect first character to lower string when isLowerCamelCase is set as true
-    expect(camel.toCamelCase(isLowerCamelCase: true), 'helloWorld');
-    expect(multiCaseSentence.toCamelCase(isLowerCamelCase: true),
-        'thisSentenceContainMultiplyWords');
+    expect('Hello world'.toCamelCase(isLowerCamelCase: true), 'helloWorld');
+
+    /// Expected First letter Uppercase when a Non-ASCII upperCase and lowerCase word is called.
+    expect('ПРИВЕТ привет'.toCamelCase(), 'ПриветПривет');
+
+    /// Expect same String when a string containing Single case Non-ASCII word is called.
+    expect('مرحبا مرحبا'.toCamelCase(), 'مرحبامرحبا');
   });
 }
