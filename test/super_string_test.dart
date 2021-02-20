@@ -115,7 +115,7 @@ void main() {
     expect('ПРИВЕТ'.isAlpha, true);
   });
 
-  test('isInteger', () async {
+  test('isInteger', () {
     /// Expected False when a empty String `""` is called.
     expect(''.isInteger, false);
 
@@ -247,16 +247,28 @@ void main() {
     /// Expected 0 when there is no match
     expect('hello'.similarity('Ab987'), 0);
 
+    /// Expected 4 since letter 'l' is consider as length of 1.
+    expect('Hello Hello'.similarity('Hello'), 4);
+
+    /// Expected Number of Matcher String contains in actual String. 
+    expect('Hello Hello'.similarity('Hello', isWordComparison: true), 1);
+    expect('Hello This My Sentenece'.similarity('Hey This My Code', isWordComparison: true), 2);
+    expect('Hello This My Sentenece'.similarity('Hey This My Code'), 10);
+
+    /// Comparison when word serach is true
+    expect('123'.similarity('123'), 3);
+    expect('123'.similarity('123', isWordComparison: true), 1);
+
     /// Similarity function is Case sensitive.
     expect('A'.similarity('a'), 0);
     expect('x'.similarity('X'), 0);
 
-    /// Expected some number when is match
-    expect('Hello world'.similarity('H'), 1);
+    /// Number of String in matcher contains in actual String when word serach is false.
+    expect('Hello world'.similarity('ol'), 2);
+    expect('Hello world'.similarity('lox'), 2);
+    expect('Hello world'.similarity('l', isWordComparison: true), 0);
 
-    /// TODO: fix similarity implementation
-    //expect('Hello Hello'.similarity('Hello'), 4);
-    expect('123'.similarity('123'), 3);
+    /// Non-ASCII similarity
     expect('ПРИВЕТ'.similarity('ПРИ'), 3);
     expect('مرحبا'.similarity('مرح'), 3);
   });

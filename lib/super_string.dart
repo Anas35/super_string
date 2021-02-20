@@ -146,19 +146,34 @@ extension SuperString on String {
 
   /// Returns the number of matching characters of two strings.
   ///
+  /// If the `isWordComparison` is `true` then Return the number
+  /// of matching word of two strings.
+  /// 
+  /// The defualt Value of `isWordComparison` is false.
+  ///
   /// Example :
   ///
   /// ```
-  /// print('This'.similarity('This')); // 4
-  /// print('this'.similarity('THis')); // 2
+  /// print('Hello World'.similarity('Hello All')); // 5 => [H, e, l, o, ' ']
+  /// print('Hello World'.similarity('Hello All', isWordsComparison: true)); // 1
   /// ```
   ///
-  int similarity(String value) {
+  int similarity(String matcher,{bool isWordComparison = false}) {
     int similar = 0;
 
-    for (int i = 0; i < this.length; i++) {
-      if (value.contains(this.charAt(i))) {
-        value = value.replaceFirst(this.charAt(i), "");
+    List<String> _subStr = [];
+
+    if(isWordComparison) {
+      _subStr = this.contains(' ') ? this.split(' ') : [this];
+    } else {
+      for (int i = 0; i < this.length; i++) {
+        _subStr.add(this.charAt(i));  
+      }
+    }
+
+    for (String str in _subStr) {
+      if (matcher.contains(str)) {
+        matcher = matcher.replaceAll(str, "");
         similar++;
       }
     }

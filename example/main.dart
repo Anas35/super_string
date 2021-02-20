@@ -46,7 +46,9 @@ void main() {
 
   /// [similarity]
   print('This'.similarity('This')); // => 4
-  print('this'.similarity('THis')); // => 2
+  print('Hello World'.similarity('Hello All')); // => 5
+  print('Hello World'.similarity('Hello All', isWordComparison: true)); // => 1
+  print('This is Example sentence'.similarity('This is Example words', isWordComparison: true)); // => 3
 
   /// [capitalize]
   print('this'.capitalize()); // => 'This'
