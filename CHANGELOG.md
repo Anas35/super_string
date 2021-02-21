@@ -1,3 +1,9 @@
+## 1.0.0-nullsafety.2
+
+* added CamelCase method
+* set unicode flag in RegExp
+* added optional argument in similarity method
+
 ## 1.0.0-nullsafety.1
 
 * fixed pub point error

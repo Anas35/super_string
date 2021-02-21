@@ -1,6 +1,6 @@
 name: super_string
 description: Some of the most common and useful string methods, Inspired by various other programming languages.
-version: 1.0.0-nullsafety.1
+version: 1.0.0-nullsafety.2
 homepage: https://github.com/Anas35/super_string
 
 environment:

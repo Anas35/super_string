@@ -250,9 +250,12 @@ void main() {
     /// Expected 4 since letter 'l' is consider as length of 1.
     expect('Hello Hello'.similarity('Hello'), 4);
 
-    /// Expected Number of Matcher String contains in actual String. 
+    /// Expected Number of Matcher String contains in actual String.
     expect('Hello Hello'.similarity('Hello', isWordComparison: true), 1);
-    expect('Hello This My Sentenece'.similarity('Hey This My Code', isWordComparison: true), 2);
+    expect(
+        'Hello This My Sentenece'
+            .similarity('Hey This My Code', isWordComparison: true),
+        2);
     expect('Hello This My Sentenece'.similarity('Hey This My Code'), 10);
 
     /// Comparison when word serach is true
@@ -354,7 +357,7 @@ void main() {
     expect('hello_world'.toCamelCase(), 'HelloWorld');
     expect('hello world'.toCamelCase(), 'HelloWorld');
 
-     /// Expected a actual String without Space when only a number is called.
+    /// Expected a actual String without Space when only a number is called.
     expect('123 123'.toCamelCase(), '123123');
 
     /// Expected a actual String without Space when a Special Character is called.

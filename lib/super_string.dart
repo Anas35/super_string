@@ -148,7 +148,7 @@ extension SuperString on String {
   ///
   /// If the `isWordComparison` is `true` then Return the number
   /// of matching word of two strings.
-  /// 
+  ///
   /// The defualt Value of `isWordComparison` is false.
   ///
   /// Example :
@@ -158,16 +158,16 @@ extension SuperString on String {
   /// print('Hello World'.similarity('Hello All', isWordsComparison: true)); // 1
   /// ```
   ///
-  int similarity(String matcher,{bool isWordComparison = false}) {
+  int similarity(String matcher, {bool isWordComparison = false}) {
     int similar = 0;
 
     List<String> _subStr = [];
 
-    if(isWordComparison) {
+    if (isWordComparison) {
       _subStr = this.contains(' ') ? this.split(' ') : [this];
     } else {
       for (int i = 0; i < this.length; i++) {
-        _subStr.add(this.charAt(i));  
+        _subStr.add(this.charAt(i));
       }
     }
 
