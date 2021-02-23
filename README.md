@@ -46,6 +46,7 @@ void main() {
 | [center()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/center.html) | Return a centered string |
 | [count()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/count.html) | Count the number of times a specified value occurs in a string |
 | [expandTabs()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/expandTabs.html) | Sets the tab size of the string |
+| [toCamelCase()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/toCamelCase.html) | Convert the given string to camelCase |
 
 ## Features, Bugs and Contributing
 

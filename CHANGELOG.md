@@ -1,6 +1,6 @@
 ## 1.0.0-nullsafety.2
 
-* added CamelCase method
+* added toCamelCase method
 * set unicode flag in RegExp
 * added optional argument in similarity method
 

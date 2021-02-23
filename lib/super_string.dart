@@ -283,8 +283,9 @@ extension SuperString on String {
       if (this.charAt(i) == ' ' || this.charAt(i) == '_') {
         str.write(this.charAt(i + 1).toUpperCase());
       } else {
-        if (this.charAt(i - 1) != ' ' && this.charAt(i - 1) != '_')
+        if (this.charAt(i - 1) != ' ' && this.charAt(i - 1) != '_') {
           str.write(this.charAt(i).toLowerCase());
+        }
       }
     }
     return str.toString();
