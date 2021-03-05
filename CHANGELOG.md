@@ -1,3 +1,9 @@
+## 1.0.0
+
+* stable version
+* added iterable, first and last method
+* major API change
+
 ## 1.0.0-nullsafety.2
 
 * added toCamelCase method

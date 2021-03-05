@@ -31,6 +31,19 @@ void main() {
   print('This@123'.isIdentifier); // => false
   print('This_123'.isIdentifier); // => true
 
+  /// [iterable]
+  print('Hello'.iterable); // => ['H','e','l','l','o']
+  print('123'.iterable); // => ['1','2','3']
+  print('A B'.iterable); // => ['A', ' ', 'B']
+
+  /// [first]
+  print('Hello'.first); // => 'H'
+  print('123'.first); // => '1'
+
+  /// [last]
+  print('Hello'.last); // => 'o'
+  print('123'.last); // => '3'
+
   /// [title]
   print('this123'.title()); // => 'This123'
   print('This is title'.title()); // => 'This Is Title'

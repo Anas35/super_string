@@ -76,7 +76,33 @@ extension SuperString on String {
   ///
   bool get isIdentifier =>
       RegExp(r"^[\p{L}\p{N}_]+$", unicode: true).hasMatch(this) &&
-      !this[0].isInteger;
+      !this.first.isInteger;
+
+  /// Return a [Iterable] containing all the characters of the string.
+  ///
+  /// If `this` is empty, its returns a empty [Iterable]
+  ///
+  /// Example :
+  ///
+  /// ```
+  /// print('Hello'.iterable); // ['H','e','l','l','o',]
+  /// print('A B'.iterable); // ['A', ' ', 'B']
+  /// ```
+  ///
+  Iterable<String> get iterable =>
+      this.runes.map((int rune) => String.fromCharCode(rune));
+
+  /// Return the first charcter of a string
+  ///
+  /// Throws a [StateError] if `this` is empty.
+  ///
+  String get first => String.fromCharCode(this.runes.first);
+
+  /// Return the last charcter of a string
+  ///
+  /// Throws a [StateError] if `this` is empty.
+  ///
+  String get last => String.fromCharCode(this.runes.last);
 
   /// Return a `String` where first character of every words is converted to upperCase.
   ///
@@ -89,14 +115,10 @@ extension SuperString on String {
   ///
   String title() {
     List<String> words = this.split(' ');
-    StringBuffer str = StringBuffer();
 
-    List<String> capitalizeWords = [];
-
-    if (this.contains(' ') && !this.endsWith(' ')) {
-      words.forEach((e) => capitalizeWords.add(e.capitalize()));
-      str.writeAll(capitalizeWords, ' ');
-      return str.toString();
+    if (this.contains(' ')) {
+      words.setAll(0, words.map((element) => element.capitalize()));
+      return words.join(' ');
     } else {
       return this.capitalize();
     }
@@ -114,13 +136,8 @@ extension SuperString on String {
   String swapcase() {
     StringBuffer str = StringBuffer();
 
-    for (int i = 0; i < this.length; i++) {
-      if (this.charAt(i) == this.charAt(i).toUpperCase()) {
-        str.write(this.charAt(i).toLowerCase());
-      } else {
-        str.write(this.charAt(i).toUpperCase());
-      }
-    }
+    this.iterable.forEach((char) =>
+        str.write(char.isUpperCase ? char.toLowerCase() : char.toUpperCase()));
 
     return this.isNotEmpty ? str.toString() : this;
   }
@@ -135,14 +152,9 @@ extension SuperString on String {
   /// print('This'.charAt(3)); // 's'
   /// ```
   ///
-  /// Throws an [AssertionError] if `index` is negative or greater than String's length.
+  /// Throws an [RangeError] if `index` is negative or greater than String's length.
   ///
-  String charAt(int index) {
-    assert(this.isNotEmpty, 'String should not be empty');
-    assert(!index.isNegative && index < this.length,
-        'Index should be not be negative or greater than String length');
-    return this[index];
-  }
+  String charAt(int index) => this.iterable.elementAt(index);
 
   /// Returns the number of matching characters of two strings.
   ///
@@ -166,9 +178,7 @@ extension SuperString on String {
     if (isWordComparison) {
       _subStr = this.contains(' ') ? this.split(' ') : [this];
     } else {
-      for (int i = 0; i < this.length; i++) {
-        _subStr.add(this.charAt(i));
-      }
+      _subStr.addAll(this.iterable);
     }
 
     for (String str in _subStr) {
@@ -190,7 +200,7 @@ extension SuperString on String {
   /// ```
   ///
   String capitalize() => this.isNotEmpty
-      ? this[0].toUpperCase() + this.substring(1).toLowerCase()
+      ? this.first.toUpperCase() + this.substring(1).toLowerCase()
       : this;
 
   /// Return a `String` of specified length width which is align in center, using the specified
@@ -211,16 +221,17 @@ extension SuperString on String {
     assert(character.length <= 1, "character's length should be equal to 1");
 
     StringBuffer str = StringBuffer();
-    String char = character;
-    int times = length - this.length;
+    int len = length - this.length;
 
-    times.isOdd
-        ? str.write(char * (times ~/ 2 + 1))
-        : str.write(char * (times ~/ 2));
-    str.write(this);
-    str.write(char * (times ~/ 2));
+    int times = len ~/ 2;
 
-    return !times.isNegative ? str.toString() : this;
+    str.writeAll([
+      len.isOdd ? character * (times + 1) : character * times,
+      this,
+      character * times,
+    ]);
+
+    return len.isNegative ? this : str.toString();
   }
 
   /// Return the number of times a specified `value` appears in the string.
@@ -271,23 +282,22 @@ extension SuperString on String {
   /// ```
   ///
   String toCamelCase({bool isLowerCamelCase = false}) {
-    if (this.isEmpty) return this;
+    Pattern pattern = RegExp(r"[ _]");
 
-    StringBuffer str = StringBuffer();
+    Iterable<String> itrStr = this.split(pattern);
+    List<String> answer = [];
 
-    isLowerCamelCase
-        ? str.write(this.charAt(0).toLowerCase())
-        : str.write(this.charAt(0).toUpperCase());
+    String first = itrStr.first;
+    answer.add(isLowerCamelCase ? first.toLowerCase() : first.capitalize());
 
-    for (int i = 1; i < this.length; i++) {
-      if (this.charAt(i) == ' ' || this.charAt(i) == '_') {
-        str.write(this.charAt(i + 1).toUpperCase());
-      } else {
-        if (this.charAt(i - 1) != ' ' && this.charAt(i - 1) != '_') {
-          str.write(this.charAt(i).toLowerCase());
-        }
-      }
+    itrStr = itrStr.skip(1);
+
+    if (this.contains(pattern)) {
+      itrStr.forEach((string) => answer.add(string.capitalize()));
+    } else {
+      return isLowerCamelCase ? this.toLowerCase() : this.capitalize();
     }
-    return str.toString();
+
+    return answer.join();
   }
 }

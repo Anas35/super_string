@@ -173,6 +173,37 @@ void main() {
     expect('ПРИВЕТ'.isIdentifier, true);
   });
 
+  test('iterable', () {
+    /// Expect a empty List when a empty string is called.
+    expect(''.iterable, []);
+
+    /// Expect to iterate all the characters in a String.
+    expect('Hello'.iterable, ['H', 'e', 'l', 'l', 'o']);
+    expect('H 1@'.iterable, ['H', ' ', '1', '@']);
+    expect('مرحبا٦٥'.iterable, ['م', 'ر', 'ح', 'ب', 'ا', '٦', '٥']);
+    expect('ПРИВЕТ'.iterable, ['П', 'Р', 'И', 'В', 'Е', 'Т']);
+  });
+
+  test('first', () {
+    /// throw StateErrro when String is empty
+    expect(() => ''.first, throwsStateError);
+
+    /// Expect to return a first character from a String
+    expect('Hello'.first, 'H');
+    expect('مرحبا٦٥'.first, 'م');
+    expect('ПРИВЕТ'.first, 'П');
+  });
+
+  test('last', () {
+    /// throw StateErrro when String is empty
+    expect(() => ''.last, throwsStateError);
+
+    /// Expect to return a first character from a String
+    expect('Hello'.last, 'o');
+    expect('مرحبا'.last, 'ا');
+    expect('ПРИВЕТ'.last, 'Т');
+  });
+
   test('title', () {
     /// Expected `""` when Empty string `""` is called.
     expect(''.title(), '');
@@ -221,13 +252,13 @@ void main() {
 
   test('charAt', () {
     /// index should not be empty string.
-    expect(() => ''.charAt(0), throwsAssertionError);
+    expect(() => ''.charAt(0), throwsRangeError);
 
     /// index should not be negative.
-    expect(() => 'hello'.charAt(-1), throwsAssertionError);
+    expect(() => 'hello'.charAt(-1), throwsRangeError);
 
     /// index should not be greater than input String.
-    expect(() => 'hello'.charAt(6), throwsAssertionError);
+    expect(() => 'hello'.charAt(6), throwsRangeError);
 
     /// Expected a single character's length when the function is called.
     expect('hello'.charAt(1).length, 1);
@@ -353,6 +384,12 @@ void main() {
     /// Expected `""` when Empty string `""` is called.
     expect(''.toCamelCase(), '');
 
+    expect('hello'.toCamelCase(), 'Hello');
+    expect('hello'.toCamelCase(isLowerCamelCase: true), 'hello');
+
+    expect('hello world_dart'.toCamelCase(isLowerCamelCase: true),
+        'helloWorldDart');
+
     /// Expected to match the string
     expect('hello_world'.toCamelCase(), 'HelloWorld');
     expect('hello world'.toCamelCase(), 'HelloWorld');
@@ -371,5 +408,8 @@ void main() {
 
     /// Expect same String when a string containing Single case Non-ASCII word is called.
     expect('مرحبا مرحبا'.toCamelCase(), 'مرحبامرحبا');
+
+    expect('hello '.toCamelCase(), 'Hello');
+    expect('_hello'.toCamelCase(), 'Hello');
   });
 }

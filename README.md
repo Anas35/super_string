@@ -14,8 +14,10 @@ void main() {
   print('This123'.isAlNum); // => true
   print('This'.isAlpha); // => true
   print('123'.isInteger); // => true
-  print('123This'.isIdentifier); // => false
   print('This_123'.isIdentifier); // => true
+  print('Hello'.iterable); // => ['H','e','l','l','o']
+  print('Hello'.first); // => 'H'
+  print('Hello'.last); // => 'o'
   print('tHiS iS tiTle'.title()); // => 'This Is Title'
   print('tHiS'.swapcase()); // => 'ThIs'
   print('This'.charAt(0)); // => 'T'
@@ -24,6 +26,7 @@ void main() {
   print('this'.center(7,'0')); // => '00this0'
   print('this'.count('t')); // => 1
   print('a\ta'.expandTabs(2)); // => 'a a'
+  print('hello world'.toCamelCase()); // => 'HelloWorld'
 }
 ```
 
@@ -38,6 +41,9 @@ void main() {
 | [isAlpha](https://pub.dev/documentation/super_string/latest/super_string/SuperString/isAlpha.html) | Check if the characters contains only **Alphabets** |
 | [isInteger](https://pub.dev/documentation/super_string/latest/super_string/SuperString/isInteger.html) | Check if the characters contains only **Numbers** |
 | [isIdentifier](https://pub.dev/documentation/super_string/latest/super_string/SuperString/isInteger.html) | Check if the characters contains only **Alphabets**,**Numbers** and **underscore( _ )**|
+| [iterable](https://pub.dev/documentation/super_string/latest/super_string/SuperString/iterable.html) | Iterated all the character in a String |
+| [first](https://pub.dev/documentation/super_string/latest/super_string/SuperString/first.html) | Return the first character in a String |
+| [last](https://pub.dev/documentation/super_string/latest/super_string/SuperString/last.html) | Return the last character in a String |
 | [title()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/title.html) | Convert only the first character of every words into **UpperCase** |
 | [swapcase()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/title.html) | Convert **UpperCase** into **LowerCase** and vice versa |
 | [charAt()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/charAt.html) | Return a character of a specified index |
