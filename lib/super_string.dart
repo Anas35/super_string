@@ -300,4 +300,28 @@ extension SuperString on String {
 
     return answer.join();
   }
+
+  /// check if `this` contains all the value from `list`
+  ///
+  /// return false if one of value in `list` are not in `this`
+  ///
+  /// Example:
+  ///
+  /// ```
+  /// print('This is my code'.containsAll(['This','code'])); // => true
+  /// print('This is my code'.containsAll(['code','hello'])); // => false
+  /// ```
+  ///
+  bool containsAll(Iterable<String> values) => values.every(this.contains);
+
+  /// check if `this` contains any one of the value from `list`
+  ///
+  /// Example:
+  ///
+  /// ```
+  /// print('This is my code'.containsAny(['code','hello'])); // => true
+  /// print('This is my code'.containsAny(['hello','world'])); // => false
+  /// ```
+  ///
+  bool containsAny(Iterable<String> values) => values.any(this.contains);
 }

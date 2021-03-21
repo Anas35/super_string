@@ -412,4 +412,28 @@ void main() {
     expect('hello '.toCamelCase(), 'Hello');
     expect('_hello'.toCamelCase(), 'Hello');
   });
+
+  test('containsAll', () {
+    /// Expect true when all values in List are in string
+    expect('hello'.containsAll(['h', 'e', 'l', 'o']), true);
+    expect('This is my code'.containsAll(['This', 'is', 'my', 'code']), true);
+
+    /// Expect false when any one of the values is in List and not in string
+    expect('hello'.containsAll(['h', 'j']), false);
+    expect('hello'.containsAll(['a', 'b']), false);
+    expect('This is my code'.containsAll(['my', 'code', 'hello']), false);
+  });
+
+  test('containsAny', () {
+    /// Expect true when any one value in List are in string
+    expect('hello'.containsAny(['h', 'e', 'l', 'o']), true);
+    expect('hello'.containsAny(['h', 'j']), true);
+    expect('This is my code'.containsAny(['This', 'is', 'my', 'code']), true);
+    expect('This is my code'.containsAny(['my', 'code', 'hello']), true);
+
+    /// Expect false when all values in List are not in string
+    expect('hello'.containsAny(['j']), false);
+    expect('hello'.containsAny(['a', 'b']), false);
+    expect('This is my code'.containsAny(['hello']), false);
+  });
 }

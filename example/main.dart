@@ -85,4 +85,12 @@ void main() {
   print('hello World'.toCamelCase()); // => HelloWorld
   print('hello_World'.toCamelCase()); // => HelloWorld
   print('hello World'.toCamelCase(isLowerCamelCase: true)); // => helloWorld
+
+  /// [containsAll]
+  print('This is my code'.containsAll(['This', 'code'])); // => true
+  print('This is my code'.containsAll(['code', 'hello'])); // => false
+
+  /// [containsAny]
+  print('This is my code'.containsAny(['code', 'hello'])); // => true
+  print('This is my code'.containsAny(['hello', 'world'])); // => false
 }

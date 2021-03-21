@@ -1,3 +1,7 @@
+## 1.0.1
+
+* added containsAll and containsAny method
+
 ## 1.0.0
 
 * stable version

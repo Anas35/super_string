@@ -27,6 +27,8 @@ void main() {
   print('this'.count('t')); // => 1
   print('a\ta'.expandTabs(2)); // => 'a a'
   print('hello world'.toCamelCase()); // => 'HelloWorld'
+  print('This is my code'.containsAll(['This','code'])); // => true
+  print('This is my code'.containsAny(['code','hello'])); // => true
 }
 ```
 
@@ -53,6 +55,9 @@ void main() {
 | [count()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/count.html) | Count the number of times a specified value occurs in a string |
 | [expandTabs()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/expandTabs.html) | Sets the tab size of the string |
 | [toCamelCase()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/toCamelCase.html) | Convert the given string to camelCase |
+| [containsAll()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/containsAll.html) | Check if all values in List are in String |
+Convert the given string to camelCase |
+| [containsAny()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/containsAny.html) | Check if any one of the values in List are in String |
 
 ## Features, Bugs and Contributing
 
