@@ -1,4 +1,4 @@
-name: super_string
+name: build
 
 on:
   push:
