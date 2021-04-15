@@ -1,5 +1,8 @@
 ## Super String
 
+[![Pub](https://img.shields.io/pub/v/super_string.svg)](https://pub.dev/packages/super_string)
+![test](https://github.com/Anas35/super_string/actions/workflows/build.yml/badge.svg)
+
 Some of the most common and useful string methods, Inspired 
 by various other programming languages.
 
