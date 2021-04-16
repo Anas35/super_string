@@ -93,4 +93,10 @@ void main() {
   /// [containsAny]
   print('This is my code'.containsAny(['code', 'hello'])); // => true
   print('This is my code'.containsAny(['hello', 'world'])); // => false
+
+  /// [wordWrap]
+  print('Hello World'.wordWrap(width: 3)); // => 'Hello\nWorld'
+  print('Hello World'.wordWrap(width: 3, lineBreak: '\t')); // => 'Hello\tWorld'
+  print(
+      'Hello World'.wordWrap(width: 3, cutWord: true)); // => 'Hel\nlo\nWor\nld'
 }

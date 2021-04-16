@@ -32,6 +32,7 @@ void main() {
   print('hello world'.toCamelCase()); // => 'HelloWorld'
   print('This is my code'.containsAll(['This','code'])); // => true
   print('This is my code'.containsAny(['code','hello'])); // => true
+  print('Hello World'.wordWrap(width: 5)); // => 'Hello\nWorld'
 }
 ```
 
@@ -60,6 +61,7 @@ void main() {
 | [toCamelCase()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/toCamelCase.html) | Convert the given string to camelCase |
 | [containsAll()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/containsAll.html) | Check if all the values in list are in String |
 | [containsAny()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/containsAny.html) | Check if any one of the values in list are in String |
+| [wordWrap()](https://pub.dev/documentation/super_string/latest/super_string/SuperString/wordWrap.html) |Return a String wrapped at the specified length |
 
 ## Features, Bugs and Contributing
 

@@ -436,4 +436,52 @@ void main() {
     expect('hello'.containsAny(['a', 'b']), false);
     expect('This is my code'.containsAny(['hello']), false);
   });
+
+  test('wordWrap', () {
+    /// Expect actual String when its length is lesser than width
+    expect('Hello World'.wordWrap(), 'Hello World');
+    expect('Hello World'.wordWrap(width: 20), 'Hello World');
+
+    /// Expect to break a String at specified width
+    expect('Hello World'.wordWrap(width: 5), 'Hello\nWorld');
+    expect(
+        'An example of a long word is: Supercalifragulistic'
+            .wordWrap(width: 15),
+        'An example of a\nlong word is:\nSupercalifragulistic');
+    expect(
+        'A very long woooooooooooooooooord. and something'.wordWrap(width: 8),
+        'A very long\nwoooooooooooooooooord.\nand something');
+
+    /// Expect to append lineBreak after specified width
+    expect('Hello World'.wordWrap(width: 5, lineBreak: '\t'), 'Hello\tWorld');
+    expect(
+        'The quick brown fox jumped over the lazy dog.'
+            .wordWrap(width: 20, lineBreak: '<>\n'),
+        'The quick brown fox<>\njumped over the lazy<>\ndog.');
+
+    /// Expect to cut words if it exceed and cutWord set true.
+    expect('Hello World'.wordWrap(width: 3, cutWord: true), 'Hel\nlo\nWor\nld');
+    expect('Hello World'.wordWrap(width: 3, cutWord: false), 'Hello\nWorld');
+
+    expect('The quick brown fox jumped over the lazy dog.'.wordWrap(width: 20),
+        'The quick brown fox\njumped over the lazy\ndog.');
+    expect(
+        'The quick brown fox jumped over the lazy dog.'
+            .wordWrap(width: 20, cutWord: true),
+        'The quick brown fox\njumped over the lazy\ndog.');
+
+    expect(
+        'An example of a long word is: Supercalifragulistic'
+            .wordWrap(width: 15),
+        'An example of a\nlong word is:\nSupercalifragulistic');
+    expect(
+        'An example of a long word is: Supercalifragulistic'
+            .wordWrap(width: 15, cutWord: true),
+        'An example of a\nlong word is:\nSupercalifragul\nistic');
+
+    expect('A very long woooooooooooord.'.wordWrap(width: 8),
+        'A very long\nwoooooooooooord.');
+    expect('A very long woooooooooooord.'.wordWrap(width: 8, cutWord: true),
+        'A very l\nong wooo\noooooooo\nord.');
+  });
 }

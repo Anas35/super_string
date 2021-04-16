@@ -324,4 +324,47 @@ extension SuperString on String {
   /// ```
   ///
   bool containsAny(Iterable<String> values) => values.any(this.contains);
+
+  /// Return a String wrapped at the specified length.
+  ///
+  /// | Name | Description | Default Value |
+  /// |------|-------------|------|
+  /// | `width` | The number of characters at which the string will be wrapped | `75` |
+  /// | `lineBreak` | The characters which will use as break | `"\n"` |
+  /// | `cutWord` | Specifies whether a word exceeded width should be break | `false` |
+  ///
+  /// Example:
+  ///
+  /// ```
+  /// print('Hello World'.wordWrap(width: 3)); // => 'Hello\nWorld'
+  /// print('Hello World'.wordWrap(width: 3, lineBreak: '\t')); // => 'Hello\tWorld'
+  /// print('Hello World'.wordWrap(width: 3, cutWord: true)); // => 'Hel\nlo\nWor\nld'
+  /// ```
+  ///
+  String wordWrap(
+      {int width = 75, String lineBreak = "\n", bool cutWord = false}) {
+    List<String> letters = this.split('');
+    List<List<String>> lines = [];
+
+    while (letters.isNotEmpty) {
+      if (width > letters.length) {
+        width = letters.length;
+      }
+
+      if (!cutWord && letters.elementAt(width - 1) != ' ') {
+        width = letters.skip(width - 1).contains(' ')
+            ? letters.indexOf(' ', width - 1)
+            : letters.length;
+      }
+
+      lines.add(letters.take(width).toList());
+      letters.removeRange(0, width);
+    }
+
+    for (List<String> line in lines) {
+      letters.add(line.join().trim());
+    }
+
+    return letters.join(lineBreak);
+  }
 }
