@@ -10,7 +10,7 @@ extension SuperString on String {
   /// print('THIS'.isUpperCase); // true
   /// ```
   ///
-  bool get isUpperCase => this == this.toUpperCase();
+  bool get isUpperCase => this == toUpperCase();
 
   /// Return `true` if all characters in the string are in lowerCase.
   ///
@@ -21,7 +21,7 @@ extension SuperString on String {
   /// print('THIS'.isLowerCase); // false
   /// ```
   ///
-  bool get isLowerCase => this == this.toLowerCase();
+  bool get isLowerCase => this == toLowerCase();
 
   /// Return `true` if all the characters are alphanumeric (alphabet letter (a-z) and numbers (0-9)).
   ///
@@ -33,7 +33,7 @@ extension SuperString on String {
   /// print('This@123'.isAlNum); // false
   /// ```
   ///
-  bool get isAlNum => RegExp(r"^[\p{L}\p{N}]+$", unicode: true).hasMatch(this);
+  bool get isAlNum => RegExp(r'^[\p{L}\p{N}]+$', unicode: true).hasMatch(this);
 
   /// Return `true` if all the characters are alphabets letter (a-z).
   ///
@@ -45,7 +45,7 @@ extension SuperString on String {
   /// print('This@123'.isAlpha); // false
   /// ```
   ///
-  bool get isAlpha => RegExp(r"^\p{L}+$", unicode: true).hasMatch(this);
+  bool get isAlpha => RegExp(r'^\p{L}+$', unicode: true).hasMatch(this);
 
   /// Return `true` if all the characters are [int] (0-9).
   ///
@@ -57,7 +57,7 @@ extension SuperString on String {
   /// print('This@123'.isAlNum); // false
   /// ```
   ///
-  bool get isInteger => RegExp(r"^\p{N}+$", unicode: true).hasMatch(this);
+  bool get isInteger => RegExp(r'^\p{N}+$', unicode: true).hasMatch(this);
 
   /// Return `true` if the string contains only alphanumeric letters (a-z) , (0-9) and
   /// underscores (_).
@@ -75,8 +75,8 @@ extension SuperString on String {
   /// ```
   ///
   bool get isIdentifier =>
-      RegExp(r"^[\p{L}\p{N}_]+$", unicode: true).hasMatch(this) &&
-      !this.first.isInteger;
+      RegExp(r'^[\p{L}\p{N}_]+$', unicode: true).hasMatch(this) &&
+      !first.isInteger;
 
   /// Return a [Iterable] containing all the characters of the string.
   ///
@@ -90,19 +90,19 @@ extension SuperString on String {
   /// ```
   ///
   Iterable<String> get iterable =>
-      this.runes.map((int rune) => String.fromCharCode(rune));
+      runes.map((int rune) => String.fromCharCode(rune));
 
   /// Return the first charcter of a string
   ///
   /// Throws a [StateError] if `this` is empty.
   ///
-  String get first => String.fromCharCode(this.runes.first);
+  String get first => String.fromCharCode(runes.first);
 
   /// Return the last charcter of a string
   ///
   /// Throws a [StateError] if `this` is empty.
   ///
-  String get last => String.fromCharCode(this.runes.last);
+  String get last => String.fromCharCode(runes.last);
 
   /// Return a `String` where first character of every words is converted to upperCase.
   ///
@@ -114,13 +114,13 @@ extension SuperString on String {
   /// ```
   ///
   String title() {
-    List<String> words = this.split(' ');
+    final List<String> words = split(' ');
 
-    if (this.contains(' ')) {
+    if (contains(' ')) {
       words.setAll(0, words.map((element) => element.capitalize()));
       return words.join(' ');
     } else {
-      return this.capitalize();
+      return capitalize();
     }
   }
 
@@ -134,12 +134,12 @@ extension SuperString on String {
   /// ```
   ///
   String swapcase() {
-    StringBuffer str = StringBuffer();
+    final StringBuffer str = StringBuffer();
 
-    this.iterable.forEach((char) =>
+    iterable.forEach((char) =>
         str.write(char.isUpperCase ? char.toLowerCase() : char.toUpperCase()));
 
-    return this.isNotEmpty ? str.toString() : this;
+    return isNotEmpty ? str.toString() : this;
   }
 
   /// Returns the character at the specified `index` in a string.
@@ -154,7 +154,7 @@ extension SuperString on String {
   ///
   /// Throws an [RangeError] if `index` is negative or greater than String's length.
   ///
-  String charAt(int index) => this.iterable.elementAt(index);
+  String charAt(int index) => iterable.elementAt(index);
 
   /// Returns the number of matching characters of two strings.
   ///
@@ -176,14 +176,14 @@ extension SuperString on String {
     List<String> _subStr = [];
 
     if (isWordComparison) {
-      _subStr = this.contains(' ') ? this.split(' ') : [this];
+      _subStr = contains(' ') ? split(' ') : [this];
     } else {
-      _subStr.addAll(this.iterable);
+      _subStr.addAll(iterable);
     }
 
     for (String str in _subStr) {
       if (matcher.contains(str)) {
-        matcher = matcher.replaceAll(str, "");
+        matcher = matcher.replaceAll(str, '');
         similar++;
       }
     }
@@ -199,9 +199,8 @@ extension SuperString on String {
   /// print('THIS'.capitalize()); // 'This'
   /// ```
   ///
-  String capitalize() => this.isNotEmpty
-      ? this.first.toUpperCase() + this.substring(1).toLowerCase()
-      : this;
+  String capitalize() =>
+      isNotEmpty ? first.toUpperCase() + substring(1).toLowerCase() : this;
 
   /// Return a `String` of specified length width which is align in center, using the specified
   /// character.
@@ -220,10 +219,10 @@ extension SuperString on String {
   String center(int length, [String character = ' ']) {
     assert(character.length <= 1, "character's length should be equal to 1");
 
-    StringBuffer str = StringBuffer();
-    int len = length - this.length;
+    final StringBuffer str = StringBuffer();
+    final int len = length - this.length;
 
-    int times = len ~/ 2;
+    final int times = len ~/ 2;
 
     str.writeAll([
       len.isOdd ? character * (times + 1) : character * times,
@@ -248,7 +247,7 @@ extension SuperString on String {
   /// ```
   ///
   int count(String value, [int start = 0, int? end]) =>
-      value.allMatches(this.substring(start, end)).length;
+      value.allMatches(substring(start, end)).length;
 
   /// expandTabs method sets the tab size to the specified number of whitespaces.
   ///
@@ -261,7 +260,7 @@ extension SuperString on String {
   /// ```
   ///
   String expandTabs([int? size]) =>
-      size == null ? this : this.replaceAll('\t', ' ' * (size - 1));
+      size == null ? this : replaceAll('\t', ' ' * (size - 1));
 
   /// Convert the given string to camelCase.
   ///
@@ -282,20 +281,20 @@ extension SuperString on String {
   /// ```
   ///
   String toCamelCase({bool isLowerCamelCase = false}) {
-    Pattern pattern = RegExp(r"[ _]");
+    final Pattern pattern = RegExp(r'[ _]');
 
-    Iterable<String> itrStr = this.split(pattern);
-    List<String> answer = [];
+    Iterable<String> itrStr = split(pattern);
+    final List<String> answer = [];
 
-    String first = itrStr.first;
+    final String first = itrStr.first;
     answer.add(isLowerCamelCase ? first.toLowerCase() : first.capitalize());
 
     itrStr = itrStr.skip(1);
 
-    if (this.contains(pattern)) {
+    if (contains(pattern)) {
       itrStr.forEach((string) => answer.add(string.capitalize()));
     } else {
-      return isLowerCamelCase ? this.toLowerCase() : this.capitalize();
+      return isLowerCamelCase ? toLowerCase() : capitalize();
     }
 
     return answer.join();
@@ -312,7 +311,7 @@ extension SuperString on String {
   /// print('This is my code'.containsAll(['code','hello'])); // => false
   /// ```
   ///
-  bool containsAll(Iterable<String> values) => values.every(this.contains);
+  bool containsAll(Iterable<String> values) => values.every(contains);
 
   /// check if `this` contains any one of the value from `list`
   ///
@@ -323,7 +322,7 @@ extension SuperString on String {
   /// print('This is my code'.containsAny(['hello','world'])); // => false
   /// ```
   ///
-  bool containsAny(Iterable<String> values) => values.any(this.contains);
+  bool containsAny(Iterable<String> values) => values.any(contains);
 
   /// Return a String wrapped at the specified length.
   ///
@@ -342,20 +341,20 @@ extension SuperString on String {
   /// ```
   ///
   String wordWrap(
-      {int width = 75, String lineBreak = "\n", bool cutWord = false}) {
-    List<String> words = this.trim().split(RegExp(r' |\n|\t'));
-    List<String> lines = [];
+      {int width = 75, String lineBreak = '\n', bool cutWord = false}) {
+    final List<String> words = trim().split(RegExp(r' |\n|\t'));
+    final List<String> lines = [];
 
     if (cutWord) {
-      List<String> longWords =
+      final List<String> longWords =
           words.skipWhile((value) => value.length < width).toList();
 
       longWords.forEach((word) {
-        List<String> reducedWord = [];
-        String temp = word;
+        final List<String> reducedWord = [];
+        final String temp = word;
 
         while (word.isNotEmpty) {
-          int range = word.length > width ? width : word.length;
+          final int range = word.length > width ? width : word.length;
 
           reducedWord.add(word.substring(0, range).trim());
           word = word.replaceRange(0, range, '');
@@ -368,7 +367,7 @@ extension SuperString on String {
 
     while (words.isNotEmpty) {
       for (int i = 0; i < words.length; i++) {
-        String line = words
+        final String line = words
             .getRange(0, words.length - i)
             .reduce((value, element) => '$value $element');
 
