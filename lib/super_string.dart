@@ -343,28 +343,44 @@ extension SuperString on String {
   ///
   String wordWrap(
       {int width = 75, String lineBreak = "\n", bool cutWord = false}) {
-    List<String> letters = this.split('');
-    List<List<String>> lines = [];
+    List<String> words = this.trim().split(RegExp(r' |\n|\t'));
+    List<String> lines = [];
 
-    while (letters.isNotEmpty) {
-      if (width > letters.length) {
-        width = letters.length;
-      }
+    if (cutWord) {
+      List<String> longWords =
+          words.skipWhile((value) => value.length < width).toList();
 
-      if (!cutWord && letters.elementAt(width - 1) != ' ') {
-        width = letters.skip(width - 1).contains(' ')
-            ? letters.indexOf(' ', width - 1)
-            : letters.length;
-      }
+      longWords.forEach((word) {
+        List<String> reducedWord = [];
+        String temp = word;
 
-      lines.add(letters.take(width).toList());
-      letters.removeRange(0, width);
+        while (word.isNotEmpty) {
+          int range = word.length > width ? width : word.length;
+
+          reducedWord.add(word.substring(0, range).trim());
+          word = word.replaceRange(0, range, '');
+        }
+
+        words.insertAll(words.indexOf(temp), reducedWord);
+        words.remove(temp);
+      });
     }
 
-    for (List<String> line in lines) {
-      letters.add(line.join().trim());
+    while (words.isNotEmpty) {
+      for (int i = 0; i < words.length; i++) {
+        String line = words
+            .getRange(0, words.length - i)
+            .reduce((value, element) => '$value $element');
+
+        if (line.length <= width ||
+            (words.length - i == 1 && line.length > width)) {
+          lines.add(line);
+          words.removeRange(0, words.length - i);
+          break;
+        }
+      }
     }
 
-    return letters.join(lineBreak);
+    return lines.join(lineBreak);
   }
 }

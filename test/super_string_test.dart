@@ -440,7 +440,14 @@ void main() {
   test('wordWrap', () {
     /// Expect actual String when its length is lesser than width
     expect('Hello World'.wordWrap(), 'Hello World');
-    expect('Hello World'.wordWrap(width: 20), 'Hello World');
+    expect('Hello World'.wordWrap(width: 11), 'Hello World');
+
+    /// multiline String
+    expect('Hello\nWorld'.wordWrap(), 'Hello World');
+    expect('Hello\nWorld'.wordWrap(width: 5), 'Hello\nWorld');
+    expect('Hello\nWorld And Everyone\n'.wordWrap(width: 5),
+        'Hello\nWorld\nAnd\nEveryone');
+    expect('Hello\nWorld\tAnd'.wordWrap(), 'Hello World And');
 
     /// Expect to break a String at specified width
     expect('Hello World'.wordWrap(width: 5), 'Hello\nWorld');
@@ -450,7 +457,7 @@ void main() {
         'An example of a\nlong word is:\nSupercalifragulistic');
     expect(
         'A very long woooooooooooooooooord. and something'.wordWrap(width: 8),
-        'A very long\nwoooooooooooooooooord.\nand something');
+        'A very\nlong\nwoooooooooooooooooord.\nand\nsomething');
 
     /// Expect to append lineBreak after specified width
     expect('Hello World'.wordWrap(width: 5, lineBreak: '\t'), 'Hello\tWorld');
@@ -471,17 +478,17 @@ void main() {
         'The quick brown fox\njumped over the lazy\ndog.');
 
     expect(
-        'An example of a long word is: Supercalifragulistic'
-            .wordWrap(width: 15),
-        'An example of a\nlong word is:\nSupercalifragulistic');
-    expect(
-        'An example of a long word is: Supercalifragulistic'
+        'An example of a long word is: Supercalifragulistic and Pseudopseudohypoparathyroidism'
             .wordWrap(width: 15, cutWord: true),
-        'An example of a\nlong word is:\nSupercalifragul\nistic');
+        'An example of a\nlong word is:\nSupercalifragul\nistic and\nPseudopseudohyp\noparathyroidism');
 
-    expect('A very long woooooooooooord.'.wordWrap(width: 8),
-        'A very long\nwoooooooooooord.');
     expect('A very long woooooooooooord.'.wordWrap(width: 8, cutWord: true),
-        'A very l\nong wooo\noooooooo\nord.');
+        'A very\nlong\nwooooooo\nooooord.');
+
+    expect('The Pseudopseudohypoparathyroidism'.wordWrap(width: 10),
+        'The\nPseudopseudohypoparathyroidism');
+    expect(
+        'The Pseudopseudohypoparathyroidism'.wordWrap(width: 10, cutWord: true),
+        'The\nPseudopseu\ndohypopara\nthyroidism');
   });
 }
