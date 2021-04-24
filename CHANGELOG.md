@@ -1,3 +1,7 @@
+## 1.0.2
+
+* added wordWrap method
+
 ## 1.0.1
 
 * added containsAll and containsAny method
