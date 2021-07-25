@@ -1,3 +1,7 @@
+## 1.0.3
+
+* migrate to lints
+
 ## 1.0.2
 
 * added wordWrap method
