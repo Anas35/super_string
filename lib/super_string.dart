@@ -136,8 +136,9 @@ extension SuperString on String {
   String swapcase() {
     final StringBuffer str = StringBuffer();
 
-    iterable.forEach((char) =>
-        str.write(char.isUpperCase ? char.toLowerCase() : char.toUpperCase()));
+    for (var char in iterable) {
+      str.write(char.isUpperCase ? char.toLowerCase() : char.toUpperCase());
+    }
 
     return isNotEmpty ? str.toString() : this;
   }
@@ -292,7 +293,9 @@ extension SuperString on String {
     itrStr = itrStr.skip(1);
 
     if (contains(pattern)) {
-      itrStr.forEach((string) => answer.add(string.capitalize()));
+      for (var string in itrStr) {
+        answer.add(string.capitalize());
+      }
     } else {
       return isLowerCamelCase ? toLowerCase() : capitalize();
     }
@@ -349,7 +352,7 @@ extension SuperString on String {
       final List<String> longWords =
           words.skipWhile((value) => value.length < width).toList();
 
-      longWords.forEach((word) {
+      for (var word in longWords) {
         final List<String> reducedWord = [];
         final String temp = word;
 
@@ -362,7 +365,7 @@ extension SuperString on String {
 
         words.insertAll(words.indexOf(temp), reducedWord);
         words.remove(temp);
-      });
+      }
     }
 
     while (words.isNotEmpty) {

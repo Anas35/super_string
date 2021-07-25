@@ -1,6 +1,6 @@
 name: super_string
 description: Some of the most common and useful string methods, Inspired by various other programming languages.
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/Anas35/super_string
 
 environment:
@@ -8,3 +8,4 @@ environment:
 
 dev_dependencies:
   test: ^1.16.5
+  lints: ^1.0.1
